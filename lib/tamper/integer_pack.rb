@@ -6,11 +6,11 @@ module Tamper
     end
 
     def encode(idx, data)
-      choice_data = item[attribute]
+      choice_data = data[attr_name.to_s]
       choice_data = [choice_data] unless choice_data.is_a?(Array)
 
       (0...max_choices).each do |choice_idx|
-        choice_offset = (item_window * idx) + (bit_window_width * choice_idx)
+        choice_offset = (item_window_width * idx) + (bit_window_width * choice_idx)
 
         value = choice_data[choice_idx]
 
@@ -28,7 +28,7 @@ module Tamper
     def initialize_pack!(max_guid)
       @bit_window_width = Math.log2(possibilities.length).ceil
       @item_window_width = bit_window_width * max_choices
-      @bitset = Bitset.new(item_window * (max_guid + 1))
+      @bitset = Bitset.new(item_window_width * (max_guid + 1))
     end
 
   end
