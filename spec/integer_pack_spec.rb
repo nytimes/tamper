@@ -17,6 +17,7 @@ describe Tamper::IntegerPack do
       @pack_set.pack!(@data)
 
       @category_pack = @pack_set.pack_for(:category_id)
+      @category_pack.should be_a(Tamper::IntegerPack)
     end
 
     its "bit_window_width is equal to the number of bits required to represent the max possibility id" do

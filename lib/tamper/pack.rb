@@ -12,8 +12,8 @@ module Tamper
     end
 
     def self.build(attr_name, possibilities, max_choices=1)
-      if (max_choices * Math.log2(possibilities.length)) > possibilities.length
-       pack = IntegerPack
+      if (max_choices * Math.log2(possibilities.length)) < possibilities.length
+        pack = IntegerPack
       else
         pack = BitmapPack
       end
