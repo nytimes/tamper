@@ -8,7 +8,6 @@ module Tamper
 
     def initialize(attr_name, possibilities, max_choices=1)
       @attr_name, @possibilities, @max_choices = attr_name, possibilities, max_choices
-      # @possibilities = @possibilities.insert(0, nil)
     end
 
     def self.build(attr_name, possibilities, max_choices=1)
