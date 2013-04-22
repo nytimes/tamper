@@ -31,7 +31,6 @@ describe Tamper::BitmapPack do
       # first item should have pos 1 set to true since it's yellow
       str_bits[0,3].should == '100'
 
-      puts str_bits.inspect
       # last item should have pos 2 set to true since it's red
       str_bits[-3,3].should == '010'
     end
