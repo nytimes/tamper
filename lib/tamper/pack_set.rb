@@ -21,7 +21,8 @@ module Tamper
       @attr_packs[attr]
     end
 
-    def pack!(data, guid_attr:'id')
+    def pack!(data, opts={})
+      guid_attr = opts[:guid_attr] || 'id'
       max_guid = data.last[guid_attr]
       packs = [@attr_packs.values, @existence_pack].flatten
 
@@ -34,10 +35,10 @@ module Tamper
       packs.each { |p| p.finalize_pack! }
     end
 
-    def to_json
+    def to_json(opts={})
       output = {
         existence: @existence_pack.to_h,
-        attributes: @attr_packs.map { |p| p.to_h }
+        attributes: @attr_packs.values.map { |p| p.to_h }
       }
 
       output.merge!(metadata)
