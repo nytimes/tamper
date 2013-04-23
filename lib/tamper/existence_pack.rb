@@ -10,6 +10,10 @@ module Tamper
     def initialize_pack!(max_guid)
     end
 
+    def encoding
+      :existence
+    end
+
     def encode(idx, data)
       guid_diff = idx.to_i - @last_guid
 
@@ -39,6 +43,12 @@ module Tamper
 
       @bitset = Bitset.from_s(@output)
     end
+
+    def to_h
+      { encoding: encoding,
+        pack: encoded_bitset }
+    end
+
 
     private
     def control_code(cmd, offset=0)
