@@ -29,6 +29,10 @@ module Tamper
         bit_window_width: bit_window_width }
     end
 
+    # Most packs do not implement this.
+    def finalize_pack!
+    end
+
     private
     def encoded_bitset
       Base64.strict_encode64(@bitset.marshal_dump[:data])
