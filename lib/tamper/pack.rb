@@ -6,11 +6,11 @@ module Tamper
 
     attr_reader :max_guid
 
-    def initialize(attr_name, possibilities, max_choices=1)
+    def initialize(attr_name, possibilities, max_choices)
       @attr_name, @possibilities, @max_choices = attr_name, possibilities, max_choices
     end
 
-    def self.build(attr_name, possibilities, max_choices=1)
+    def self.build(attr_name, possibilities, max_choices)
       if (max_choices * Math.log2(possibilities.length)) < possibilities.length
         pack = IntegerPack
       else

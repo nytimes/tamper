@@ -9,7 +9,7 @@ module Tamper
       @metadata = {}
     end
 
-    def add_attribute(attr_name, possibilities, max_choices=1)
+    def add_attribute(attr_name, possibilities, max_choices)
       @attr_packs[attr_name] = Pack.build(attr_name, possibilities, max_choices)
     end
 
