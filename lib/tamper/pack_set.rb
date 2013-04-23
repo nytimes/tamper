@@ -14,7 +14,7 @@ module Tamper
     end
 
     def attributes
-      @output.keys
+      @attr_packs.keys
     end
 
     def pack_for(attr)
