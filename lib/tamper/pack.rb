@@ -6,8 +6,11 @@ module Tamper
 
     attr_reader :max_guid
 
+    attr_accessor :metadata
+
     def initialize(attr_name, possibilities, max_choices)
       @attr_name, @possibilities, @max_choices = attr_name, possibilities, max_choices
+      @metadata = {}
     end
 
     def self.build(attr_name, possibilities, max_choices)
@@ -21,12 +24,13 @@ module Tamper
     end
 
     def to_h
-      { encoding: encoding,
-        attribute: attr_name,
-        possibilities: possibilities,
-        pack: encoded_bitset,
-        item_window_width: item_window_width,
-        bit_window_width: bit_window_width }
+      output = { encoding: encoding,
+                attribute: attr_name,
+                possibilities: possibilities,
+                pack: encoded_bitset,
+                item_window_width: item_window_width,
+                bit_window_width: bit_window_width }
+      output.merge(metadata)
     end
 
     # Most packs do not implement this.
