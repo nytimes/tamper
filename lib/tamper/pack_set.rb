@@ -1,12 +1,12 @@
 module Tamper
   class PackSet
 
-    attr_accessor :metadata, :existence_pack
+    attr_accessor :meta, :existence_pack
 
     def initialize
       @existence_pack = ExistencePack.new 
       @attr_packs = {}
-      @metadata = {}
+      @meta = {}
     end
 
     def add_attribute(attr_name, possibilities, max_choices)
@@ -41,7 +41,7 @@ module Tamper
         attributes: @attr_packs.values.map { |p| p.to_h }
       }
 
-      output.merge!(metadata)
+      output.merge!(meta)
       output.to_json
     end
 

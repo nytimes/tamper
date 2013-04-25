@@ -6,11 +6,11 @@ module Tamper
 
     attr_reader :max_guid
 
-    attr_accessor :metadata
+    attr_accessor :meta
 
     def initialize(attr_name, possibilities, max_choices)
       @attr_name, @possibilities, @max_choices = attr_name, possibilities, max_choices
-      @metadata = {}
+      @meta = {}
     end
 
     def self.build(attr_name, possibilities, max_choices)
@@ -31,7 +31,7 @@ module Tamper
                 item_window_width: item_window_width,
                 bit_window_width: bit_window_width,
                 max_choices: max_choices }
-      output.merge(metadata)
+      output.merge(meta)
     end
 
     # Most packs do not implement this.
