@@ -29,7 +29,8 @@ module Tamper
                 possibilities: possibilities,
                 pack: encoded_bitset,
                 item_window_width: item_window_width,
-                bit_window_width: bit_window_width }
+                bit_window_width: bit_window_width,
+                max_choices: max_choices }
       output.merge(metadata)
     end
 
