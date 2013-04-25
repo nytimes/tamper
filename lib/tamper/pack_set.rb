@@ -23,8 +23,8 @@ module Tamper
 
     def pack!(data, opts={})
       guid_attr = opts[:guid_attr] || 'id'
-      max_guid = data.last[guid_attr]
-      packs = [@attr_packs.values, @existence_pack].flatten
+      max_guid  = opts[:max_guid]  || data.last[guid_attr]
+      packs     = [@attr_packs.values, @existence_pack].flatten
 
       packs.each { |p| p.initialize_pack!(max_guid) }
 
