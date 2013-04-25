@@ -1,3 +1,5 @@
+require 'bitset'
+
 require 'tamper/version'
 require 'tamper/pack_set'
 require 'tamper/pack'
