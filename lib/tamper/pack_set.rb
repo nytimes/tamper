@@ -23,7 +23,7 @@ module Tamper
 
     def pack!(data, opts={})
       opts[:guid_attr] ||= 'id'
-      opts[:max_guid]  ||= data.last[opts[:guid_attr].to_s]
+      opts[:max_guid]  ||= (data.last[opts[:guid_attr].to_sym] || data.last[opts[:guid_attr].to_s])
 
       build_pack(opts) do |p|
         data.each { |d| p << d }
@@ -40,7 +40,7 @@ module Tamper
       packs.each { |p| p.initialize_pack!(max_guid) }
 
       packer = ->(d) {
-        guid = d[guid_attr.to_s]
+        guid = d[guid_attr.to_sym] || d[guid_attr.to_s]
         packs.each { |p| p.encode(guid, d) }
       }
       packer.instance_eval { alias :<< :call; alias :add :call }

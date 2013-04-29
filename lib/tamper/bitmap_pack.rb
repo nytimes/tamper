@@ -6,7 +6,7 @@ module Tamper
     end
 
     def encode(idx, data)
-      choice_data = data[attr_name.to_s]
+      choice_data = data[attr_name.to_sym] || data[attr_name.to_s]
       choice_data = [choice_data] unless choice_data.is_a?(Array)
 
       item_offset = idx * item_window_width
