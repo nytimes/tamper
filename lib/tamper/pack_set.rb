@@ -22,15 +22,30 @@ module Tamper
     end
 
     def pack!(data, opts={})
+      opts[:guid_attr] ||= 'id'
+      opts[:max_guid]  ||= data.last[opts[:guid_attr].to_s]
+
+      build_pack(opts) do |p|
+        data.each { |d| p << d }
+      end
+    end
+
+    def build_pack(opts={}, &block)
       guid_attr = opts[:guid_attr] || 'id'
-      max_guid  = opts[:max_guid]  || data.last[guid_attr]
       packs     = [@attr_packs.values, @existence_pack].flatten
+      max_guid  = opts[:max_guid]
+
+      raise ArgumentError, "You must specify the max_guid to start building a pack!" if max_guid.nil?
 
       packs.each { |p| p.initialize_pack!(max_guid) }
 
-      data.each do |d|
-        packs.each { |p| p.encode(d[guid_attr], d) }
-      end
+      packer = ->(d) {
+        guid = d[guid_attr.to_s]
+        packs.each { |p| p.encode(guid, d) }
+      }
+      packer.instance_eval { alias :<< :call; alias :add :call }
+
+      yield(packer)
 
       packs.each { |p| p.finalize_pack! }
     end
