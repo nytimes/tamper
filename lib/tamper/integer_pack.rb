@@ -16,6 +16,11 @@ module Tamper
 
         possibility_id = possibilities.index(value)
 
+        if possibility_id
+          puts "#{idx} #{value} is #{possibilities[possibility_id]}, idx #{possibility_id}" 
+        else
+          puts "#{value} is not found."
+        end
         bit_code = possibility_id.to_i.to_s(2).split('') # converts to str binary representation
         bit_code_length_pad = bit_window_width - bit_code.length
         bit_code.each_with_index do |bit, bit_idx|

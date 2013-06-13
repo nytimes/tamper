@@ -41,7 +41,7 @@ module Tamper
 
       packer = ->(d) {
         guid = d[guid_attr.to_sym] || d[guid_attr.to_s]
-        packs.each { |p| p.encode(guid, d) }
+        packs.each { |p| p.encode(p.is_a?(ExistencePack) ? guid : d[:idx], d) }
       }
       packer.instance_eval { alias :<< :call; alias :add :call }
 
@@ -53,11 +53,11 @@ module Tamper
     def to_json(opts={})
       output = {
         existence: @existence_pack.to_h,
-        attributes: @attr_packs.values.map { |p| p.to_h }
+        attributes: Hash[@attr_packs.values.map { |p| [p.attr_name, p.to_h] }]
       }
 
       output.merge!(meta)
-      output.to_json
+      output
     end
 
   end

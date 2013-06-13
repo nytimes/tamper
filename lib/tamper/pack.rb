@@ -25,7 +25,7 @@ module Tamper
 
     def to_h
       output = { encoding: encoding,
-                attribute: attr_name,
+                attr_name: attr_name,
                 possibilities: possibilities,
                 pack: encoded_bitset,
                 item_window_width: item_window_width,

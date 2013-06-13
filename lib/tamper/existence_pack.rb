@@ -8,6 +8,7 @@ module Tamper
     end
 
     def initialize_pack!(max_guid)
+      @working_set = "0" * max_guid
     end
 
     def encoding
@@ -15,6 +16,8 @@ module Tamper
     end
 
     def encode(idx, data)
+      @working_set[idx] = '1'
+
       guid_diff = idx.to_i - @last_guid
 
       if guid_diff == 1 || idx.to_i == 0  # guid exists
@@ -55,8 +58,10 @@ module Tamper
       case cmd
       when :keep
         control_seq = '00'
+        puts "KEEP #{offset}"
       when :skip
         control_seq = '01'
+        puts "SKIP #{offset}"
       else
         raise "Unknown control cmd '#{cmd}'!"
       end
