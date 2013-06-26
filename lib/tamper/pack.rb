@@ -11,6 +11,8 @@ module Tamper
     def initialize(attr_name, possibilities, max_choices)
       @attr_name, @possibilities, @max_choices = attr_name, possibilities, max_choices
       @meta = {}
+
+      raise ArgumentError, "Possibilities are empty for #{attr_name}!" if possibilities.nil? || possibilities.empty?
     end
 
     def self.build(attr_name, possibilities, max_choices)
