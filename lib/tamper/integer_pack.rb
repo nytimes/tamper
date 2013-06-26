@@ -27,6 +27,8 @@ module Tamper
 
     def initialize_pack!(max_guid)
       @bit_window_width = Math.log2(possibilities.length).ceil
+      @bit_window_width = 1        if @bit_window_width == 0  # edge case: 1 possibility
+
       @item_window_width = bit_window_width * max_choices
       @bitset = Bitset.new(item_window_width * (max_guid + 1))
     end
