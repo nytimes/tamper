@@ -3,10 +3,10 @@ module Tamper
 
     attr_accessor :meta, :existence_pack
 
-    def initialize
+    def initialize(opts={})
       @existence_pack = ExistencePack.new 
       @attr_packs = {}
-      @meta = {}
+      @meta = opts
     end
 
     def add_attribute(opts)

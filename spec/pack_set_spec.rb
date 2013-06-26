@@ -10,7 +10,7 @@ describe Tamper::PackSet do
 
     @possibilities = (0...50).to_a.map(&:to_s)
 
-    @pack_set = Tamper::PackSet.new
+    @pack_set = Tamper::PackSet.new(default_thumb: 'thumb_url')
     @pack_set.add_attribute(name: :category_id,
                             possibilities: @possibilities,
                             max_choices: 1,
@@ -27,6 +27,10 @@ describe Tamper::PackSet do
 
   it "saves additional attributes as pack.meta" do
     @pack_set.pack_for(:category_id).meta.should == { filter_type: 'category' }
+  end
+
+  it "includes metadata passed at init as a top-level attribute in JSON" do
+    @pack_set.to_json[:default_thumb].should == 'thumb_url'
   end
 
   it "can pack unordered data using a block" do
