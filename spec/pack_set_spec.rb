@@ -43,4 +43,16 @@ describe Tamper::PackSet do
     @pack_set.existence_pack.bitset.to_s[-5,5].should == '01101'
   end
 
+  it "includes buffered attrs as part of the JSON attributes array" do
+    @pack_set.add_buffered_attribute(
+      name: 'caption',
+      display_name: 'Display Caption',
+      filter_type: 'none'
+    )
+
+    caption_attr = @pack_set.to_json[:attributes][:caption]
+    caption_attr.should_not be_nil
+    caption_attr[:display_name].should == 'Display Caption'
+  end
+
 end

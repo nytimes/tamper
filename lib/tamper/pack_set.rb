@@ -6,6 +6,7 @@ module Tamper
     def initialize(opts={})
       @existence_pack = ExistencePack.new 
       @attr_packs = {}
+      @buffered_attrs = {}
       @meta = opts
     end
 
@@ -20,8 +21,18 @@ module Tamper
 
       pack      = Pack.build(name, possibilities, max_choices)
       pack.meta = opts
-      @attr_packs[name] = pack
+      @attr_packs[name.to_sym] = pack
       pack
+    end
+
+
+    # Buffered attributes will not be packed, but their metadata will be included in the PackSet's JSON
+    # representation.  Clients will expect these attrs to be available via the <tt>buffer_url</tt>.
+    def add_buffered_attribute(opts)
+      raise ArgumentError, ":name is required when adding a buffered attribute!" if !opts.key?(:name)
+
+      attr_name   = opts.delete(:name)
+      @buffered_attrs[attr_name.to_sym] = { attr_name: attr_name }.merge(opts)
     end
 
     def attributes
@@ -89,6 +100,7 @@ module Tamper
         attributes: Hash[@attr_packs.values.map { |p| [p.attr_name, p.to_h] }]
       }
 
+      output[:attributes].merge!(@buffered_attrs)
       output.merge!(meta)
       output
     end
