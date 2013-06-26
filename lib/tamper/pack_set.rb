@@ -66,6 +66,23 @@ module Tamper
       packs.each { |p| p.finalize_pack! }
     end
 
+    def build_unordered_pack(opts={}, &block)
+      guid_attr = opts[:guid_attr] || 'id'
+      data = {}
+
+      extractor = ->(d) {
+        guid = d[guid_attr.to_sym] || d[guid_attr.to_s]
+        data[guid] = d
+      }
+      extractor.instance_eval { alias :<< :call; alias :add :call }
+
+      yield(extractor)
+
+      sorted_guids = data.keys.sort
+      sorted_data = sorted_guids.map { |guid| data[guid] }
+      pack!(sorted_data, opts)
+    end
+
     def to_json(opts={})
       output = {
         existence: @existence_pack.to_h,

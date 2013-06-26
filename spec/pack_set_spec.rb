@@ -29,4 +29,14 @@ describe Tamper::PackSet do
     @pack_set.pack_for(:category_id).meta.should == { filter_type: 'category' }
   end
 
+  it "can pack unordered data using a block" do
+    @data.first['id'] = 4
+
+    @pack_set.build_unordered_pack(max_guid: 4) do |p|
+      @data.each { |d| p << d }
+    end
+
+    @pack_set.existence_pack.bitset.to_s[-5,5].should == '01101'
+  end
+
 end
