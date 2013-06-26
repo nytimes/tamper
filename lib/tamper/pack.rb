@@ -42,7 +42,7 @@ module Tamper
 
     private
     def encoded_bitset
-      Base64.strict_encode64(@bitset.marshal_dump[:data])
+      Base64.strict_encode64(@bitset.marshal_dump[:data]) if @bitset
     end
   end
 end
