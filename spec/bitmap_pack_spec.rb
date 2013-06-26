@@ -10,7 +10,9 @@ describe Tamper::BitmapPack do
     ]
 
     @pack_set = Tamper::PackSet.new
-    @pack_set.add_attribute(:color, ['yellow', 'red', 'blue', 'purple'], 2)
+    @pack_set.add_attribute(name: :color,
+                            possibilities: ['yellow', 'red', 'blue', 'purple'],
+                            max_choices: 2)
     @pack_set.pack!(@data)
 
     @color_pack = @pack_set.pack_for(:color)

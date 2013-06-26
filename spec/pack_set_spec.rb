@@ -11,7 +11,10 @@ describe Tamper::PackSet do
     @possibilities = (0...50).to_a.map(&:to_s)
 
     @pack_set = Tamper::PackSet.new
-    @pack_set.add_attribute(:category_id, @possibilities, 1)
+    @pack_set.add_attribute(name: :category_id,
+                            possibilities: @possibilities,
+                            max_choices: 1,
+                            filter_type: 'category')
   end
 
   it "packs data using a block" do
@@ -20,6 +23,10 @@ describe Tamper::PackSet do
     end
 
     @pack_set.existence_pack.bitset.to_s[-3,3].should == '111'
+  end
+
+  it "saves additional attributes as pack.meta" do
+    @pack_set.pack_for(:category_id).meta.should == { filter_type: 'category' }
   end
 
 end

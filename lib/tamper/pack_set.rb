@@ -9,8 +9,19 @@ module Tamper
       @meta = {}
     end
 
-    def add_attribute(attr_name, possibilities, max_choices)
-      @attr_packs[attr_name] = Pack.build(attr_name, possibilities, max_choices)
+    def add_attribute(opts)
+      [:name, :possibilities, :max_choices].each do |required_opt|
+        raise ArgumentError, ":#{required_opt} is required when adding an attribute!" if !opts.key?(required_opt)
+      end
+
+      name          = opts.delete(:name)
+      possibilities = opts.delete(:possibilities)
+      max_choices   = opts.delete(:max_choices)
+
+      pack      = Pack.build(name, possibilities, max_choices)
+      pack.meta = opts
+      @attr_packs[name] = pack
+      pack
     end
 
     def attributes
