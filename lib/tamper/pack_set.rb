@@ -32,21 +32,26 @@ module Tamper
 
     def build_pack(opts={}, &block)
       guid_attr = opts[:guid_attr] || 'id'
-      packs     = [@attr_packs.values, @existence_pack].flatten
+      packs = @attr_packs.values
       max_guid  = opts[:max_guid]
 
       raise ArgumentError, "You must specify the max_guid to start building a pack!" if max_guid.nil?
 
+      existence_pack.initialize_pack!(max_guid)
       packs.each { |p| p.initialize_pack!(max_guid) }
 
+      idx = 0
       packer = ->(d) {
         guid = d[guid_attr.to_sym] || d[guid_attr.to_s]
-        packs.each { |p| p.encode(p.is_a?(ExistencePack) ? guid : d[:idx], d) }
+        existence_pack.encode(guid)
+        packs.each { |p| p.encode(idx, d) }
+        idx += 1
       }
       packer.instance_eval { alias :<< :call; alias :add :call }
 
       yield(packer)
 
+      existence_pack.finalize_pack!
       packs.each { |p| p.finalize_pack! }
     end
 

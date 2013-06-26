@@ -15,12 +15,12 @@ module Tamper
       :existence
     end
 
-    def encode(idx, data)
-      @working_set[idx] = '1'
+    def encode(guid)
+      @working_set[guid] = '1'
 
-      guid_diff = idx.to_i - @last_guid
+      guid_diff = guid.to_i - @last_guid
 
-      if guid_diff == 1 || idx.to_i == 0  # guid exists
+      if guid_diff == 1 || guid.to_i == 0  # guid exists
         @current_chunk << '1'
       
       elsif guid_diff <= 0  # somehow we went backwards or didn't change guid on iteration
@@ -37,7 +37,7 @@ module Tamper
         @current_chunk << '1'
       end
 
-      @last_guid = idx.to_i
+      @last_guid = guid.to_i
     end
 
     def finalize_pack!
@@ -58,10 +58,8 @@ module Tamper
       case cmd
       when :keep
         control_seq = '00'
-        puts "KEEP #{offset}"
       when :skip
         control_seq = '01'
-        puts "SKIP #{offset}"
       else
         raise "Unknown control cmd '#{cmd}'!"
       end
