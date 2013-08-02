@@ -40,6 +40,21 @@ module Tamper
     def finalize_pack!
     end
 
+    def padded_output
+      length = @bitset.to_s.length
+
+      pad_length = 8 - (length % 8)
+      pad_set = Bitset.new(pad_length)
+      pad_set[pad_length - 1] = true
+
+      final_set = Bitset.new(length + pad_length)
+      final_set[pad_length] = @bitset
+      final_set[0] = pad_set
+
+
+      final_set
+    end
+
     private
     def encoded_bitset
       Base64.strict_encode64(@bitset.marshal_dump[:data]) if @bitset
