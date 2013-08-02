@@ -40,6 +40,10 @@ describe Tamper::Pack do
     it "pads with 1s" do
       @output.to_s[0,1].should == '1'
     end
+
+    it "retains original data" do
+      @output.to_s[1,23].should== @existence_pack.bitset.to_s
+    end
   end
 
 

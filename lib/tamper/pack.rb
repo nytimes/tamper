@@ -47,17 +47,12 @@ module Tamper
       pad_set = Bitset.new(pad_length)
       pad_set[pad_length - 1] = true
 
-      final_set = Bitset.new(length + pad_length)
-      final_set[pad_length] = @bitset
-      final_set[0] = pad_set
-
-
-      final_set
+      Bitset.from_s(pad_set.to_s + @bitset.to_s)
     end
 
     private
     def encoded_bitset
-      Base64.strict_encode64(@bitset.marshal_dump[:data]) if @bitset
+      Base64.strict_encode64(padded_output.marshal_dump[:data]) if @bitset
     end
   end
 end
