@@ -30,7 +30,11 @@ describe Tamper::PackSet do
   end
 
   it "includes metadata passed at init as a top-level attribute in JSON" do
-    @pack_set.to_json[:default_thumb].should == 'thumb_url'
+    @pack_set.to_hash[:default_thumb].should == 'thumb_url'
+  end
+
+  it "jsonifies using Oj" do
+    @pack_set.to_json.is_a?(String).should be_true
   end
 
   it "can pack unordered data using a block" do
@@ -50,7 +54,7 @@ describe Tamper::PackSet do
       filter_type: 'none'
     )
 
-    caption_attr = @pack_set.to_json[:attributes][:caption]
+    caption_attr = @pack_set.to_hash[:attributes][:caption]
     caption_attr.should_not be_nil
     caption_attr[:display_name].should == 'Display Caption'
   end

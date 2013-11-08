@@ -94,7 +94,7 @@ module Tamper
       pack!(sorted_data, opts)
     end
 
-    def to_json(opts={})
+    def to_hash(opts={})
       output = {
         existence: @existence_pack.to_h,
         attributes: Hash[@attr_packs.values.map { |p| [p.attr_name, p.to_h] }]
@@ -105,5 +105,8 @@ module Tamper
       output
     end
 
+    def to_json(opts={})
+      Oj.dump self, { mode: :compat }
+    end
   end
 end
