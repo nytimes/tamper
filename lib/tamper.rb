@@ -1,6 +1,7 @@
 require 'bitset'
 require 'base64'
 require 'json'
+require 'oj'
 
 require 'tamper/version'
 require 'tamper/pack_set'
