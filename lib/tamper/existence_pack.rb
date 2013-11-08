@@ -24,7 +24,7 @@ module Tamper
         @current_chunk << '1'
       
       elsif guid_diff <= 0  # somehow we went backwards or didn't change guid on iteration
-        raise ArgumentError, "Error: data was not sorted by GUID (got #{@last_guid}, then #{idx})!"
+        raise ArgumentError, "Error: data was not sorted by GUID (got #{@last_guid}, then #{guid})!"
     
       elsif guid_diff > 20  # big gap, encode with skip control char
         @output += control_code(:keep, @current_chunk.length) unless @current_chunk.empty?
