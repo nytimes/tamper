@@ -69,4 +69,71 @@ end
 ### Return .to_json and you should have a complete pack!
 ```
 render :json => @pack_set.to_json
+
+## The format
+
+### Existence
+
+8-bit control code:
+0 (00000000): keep
+1 (00000001): skip
+
+
+Then for keep blocks:
+
+32-bit unsigned int - length in bytes
+8-bit unsigned int - remainder bits (0-7)
+
+Data follows. Always encoded in 8-bit blocks.  If there is a remainder, right pad with zeroes.
+
+For each position in a keep block, 1 means keep 0 means skip.
+
+For skip blocks (always > 40 guid difference):
+
+32-bit unsigned int - number of guids to skip
+
+
+Example:
+
 ```
+  To encode the existence of: 
+    [1,2,3,4,7,11,13,15,17,18,19.20,21,22,23,24,26,32,33.98]
+
+  We produce:
+
+    00000000 00000000 00000000 00000000 00000100 00000001
+    11110010 00101010 11111111 01000001 10000000 00000001
+    00000000 00000000 00000000 01000000 00000000 00000000 
+    00000000 00000000 00000000 00000001 10000000  
+
+| KEEP CODE | 32-bit uint (keep 4 bytes)          | 
+  00000000    00000000 00000000 00000000 00000100   
+| 8bit uint (1 bit remainder) | 
+  00000001   
+| 4-byte + 1 bit existence bitmap (1,2,3,4,7,11,13,15,17,18,19.20,21,22,23,24,26,32,33)
+  11110010 00101010 11111111 01000001 1|
+| Right padding |
+  0000000
+
+| SKIP CODE | 32-bit uint - number of guids to skip (skip 34-97) |
+  00000001    00000000 00000000 00000000 01000000   
+
+
+| KEEP CODE | 32-bit uint (keep 0 bytes)          | 
+  00000000    00000000 00000000 00000000 00000000   
+| 8bit uint (1 bit remainder) | 
+  00000001   
+| 1-bit existence bitmap (98) |
+  1
+| Right padding |
+  0000000
+```
+
+TODO: continguous range control code
+
+
+
+
+
+### 
+
