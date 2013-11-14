@@ -130,10 +130,3 @@ Example:
 ```
 
 TODO: continguous range control code
-
-
-
-
-
-### 
-
