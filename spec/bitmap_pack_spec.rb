@@ -24,20 +24,25 @@ describe Tamper::BitmapPack do
   end
 
   its "length is equal to the number of choices * the number of items" do
-    @color_pack.bitset.size.should == (4 * 3)
+    @color_pack.bitset.size.should == (4 * 3) + 32 + 8
+  end
+
+  it "encodes the length at the front of the pack" do
+    @color_pack.bitset.to_s[0,32].to_i(2).should == 1
+    @color_pack.bitset.to_s[32,8].to_i(2).should == 4
   end
 
   it "flips a bit true for each selected choice" do
     str_bits = @color_pack.bitset.to_s
 
     # first item should have idx 0 set to true since it's yellow, idx 2 since it's blue
-    str_bits[0,4].should == '1010'
+    str_bits[40,4].should == '1010'
 
     # second item should have the same, order that possibilities are in does not matter
-    str_bits[4,4].should == '1010'
+    str_bits[44,4].should == '1010'
 
     # last item should have pos 2 set to true since it's red
-    str_bits[-4,4].should == '0100'
+    str_bits[48,4].should == '0100'
   end
 
 end
