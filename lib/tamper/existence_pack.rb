@@ -31,11 +31,11 @@ module Tamper
           @output += '8' * (8 - (@output.length % 8))
         end
 
-        @output += control_code(:skip, (guid_diff - 1))
+        @output += control_code(:skip, guid_diff)
         @current_chunk = '1'
     
       else # skips < 20 should just be encoded as '0'
-        @current_chunk += ('0' * (guid_diff - 1))
+        @current_chunk += ('0' * guid_diff)
         @current_chunk << '1'
       end
       @last_guid = guid.to_i
