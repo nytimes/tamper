@@ -39,7 +39,6 @@ module Tamper
     # Most packs do not implement this.
     def finalize_pack!
       data = @bitset.to_s
-
       byte_length = data.length / 8
       remaining_bits = data.length % 8
 
@@ -50,19 +49,9 @@ module Tamper
       @bitset = Bitset.from_s(output)
     end
 
-    # def padded_output
-    #   length = @bitset.to_s.length
-
-    #   pad_length = 8 - (length % 8)
-    #   pad_set = Bitset.new(pad_length)
-    #   pad_set[pad_length - 1] = true
-
-    #   Bitset.from_s(pad_set.to_s + @bitset.to_s)
-    # end
-
     private
     def encoded_bitset
-      Base64.strict_encode64(@bitset.to_s.marshal_dump[:data]) if @bitset
+      Base64.strict_encode64(@bitset.marshal_dump[:data].unpack('b*').pack('B*')) if @bitset
     end
   end
 end
