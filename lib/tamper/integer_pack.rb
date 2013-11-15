@@ -14,7 +14,8 @@ module Tamper
 
         value = choice_data[choice_idx]
 
-        possibility_id = possibilities.index(value)
+        # TODO: test and handle nil case
+        possibility_id = possibilities.index(value) + 1
 
         bit_code = possibility_id.to_i.to_s(2).split('') # converts to str binary representation
         bit_code_length_pad = bit_window_width - bit_code.length
