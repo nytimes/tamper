@@ -11,11 +11,12 @@ module Tamper
     end
 
     def add_attribute(opts)
-      [:name, :possibilities, :max_choices].each do |required_opt|
+      opts = opts.dup
+      [:attr_name, :possibilities, :max_choices].each do |required_opt|
         raise ArgumentError, ":#{required_opt} is required when adding an attribute!" if !opts.key?(required_opt)
       end
 
-      name          = opts.delete(:name)
+      name          = opts.delete(:attr_name)
       possibilities = opts.delete(:possibilities)
       max_choices   = opts.delete(:max_choices)
 
@@ -29,9 +30,10 @@ module Tamper
     # Buffered attributes will not be packed, but their metadata will be included in the PackSet's JSON
     # representation.  Clients will expect these attrs to be available via the <tt>buffer_url</tt>.
     def add_buffered_attribute(opts)
-      raise ArgumentError, ":name is required when adding a buffered attribute!" if !opts.key?(:name)
+      opts = opts.dup
+      raise ArgumentError, ":attr_name is required when adding a buffered attribute!" if !opts.key?(:attr_name)
 
-      attr_name   = opts.delete(:name)
+      attr_name   = opts.delete(:attr_name)
       @buffered_attrs[attr_name.to_sym] = { attr_name: attr_name }.merge(opts)
     end
 
@@ -44,6 +46,7 @@ module Tamper
     end
 
     def pack!(data, opts={})
+      opts = opts.dup
       opts[:guid_attr] ||= 'id'
       opts[:max_guid]  ||= (data.last[opts[:guid_attr].to_sym] || data.last[opts[:guid_attr].to_s])
 
