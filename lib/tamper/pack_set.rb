@@ -17,7 +17,7 @@ module Tamper
       end
 
       name          = opts.delete(:attr_name)
-      possibilities = opts.delete(:possibilities)
+      possibilities = opts.delete(:possibilities).compact
       max_choices   = opts.delete(:max_choices)
 
       pack      = Pack.build(name, possibilities, max_choices)
