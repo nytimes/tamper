@@ -12,7 +12,7 @@ describe Tamper::IntegerPack do
     @possibilities = (0...50).to_a.map(&:to_s)
 
     @pack_set = Tamper::PackSet.new
-    @pack_set.add_attribute(name: :category_id,
+    @pack_set.add_attribute(attr_name: :category_id,
                             possibilities: @possibilities,
                             max_choices: 1)
     @pack_set.pack!(@data)
