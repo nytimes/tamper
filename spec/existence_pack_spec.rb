@@ -97,14 +97,14 @@ describe Tamper::ExistencePack do
 
     it "sets a skip control code at the start of the set" do
       @bits[0,8].should == '00000001'  # skip
-      @bits[8,32].to_i(2).should == 99 # skip 99 gids
+      @bits[8,32].to_i(2).should == 100 # skip 99 guids
     end
   end
 
   describe "the example from the README" do
     before do
 
-      test_guids = [1,2,3,4,7,11,13,15,17,18,19,20,21,22,23,24,26,32,33,98]
+      test_guids = [0,1,2,3,6,10,12,14,16,17,18,19,20,21,22,23,25,31,32,97]
       @data = test_guids.map { |guid| { 'id' => guid }}
 
       @pack_set = Tamper::PackSet.new

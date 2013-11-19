@@ -97,7 +97,7 @@ Example:
 
 ```
   To encode the existence of: 
-    [1,2,3,4,7,11,13,15,17,18,19.20,21,22,23,24,26,32,33,98]
+    [0,1,2,3,6,10,12,14,16,17,18,19,20,21,22,23,25,31,32,97]
 
   We produce:
 
@@ -110,12 +110,12 @@ Example:
   00000000    00000000 00000000 00000000 00000100   
 | 8bit uint (1 bit remainder) | 
   00000001   
-| 4-byte + 1 bit existence bitmap (1,2,3,4,7,11,13,15,17,18,19,20,21,22,23,24,26,32,33)
+| 4-byte + 1 bit existence bitmap (0,1,2,3,6,10,12,14,16,17,18,19,20,21,22,23,25,31,32,97)
   11110010 00101010 11111111 01000001 1|
 | Right padding |
   0000000
 
-| SKIP CODE | 32-bit uint - number of guids to skip (skip 34-97) |
+| SKIP CODE | 32-bit uint - number of guids to skip (skip 33-96) |
   00000001    00000000 00000000 00000000 01000000   
 
 
