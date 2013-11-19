@@ -15,7 +15,8 @@ module Tamper
     end
 
     def encode(guid)
-      guid_diff = guid.to_i - @last_guid
+      guid_diff  = guid.to_i - @last_guid
+      guid_diff += 1 if @current_chunk.empty? && @output.empty? && guid.to_i > 0
 
       if guid_diff == 1 || guid.to_i == 0  # guid exists
         @current_chunk << '1'
