@@ -28,16 +28,17 @@ module Tamper
         @output += @current_chunk
 
         if (@output.length % 8) > 0
-          @output += '8' * (8 - (@output.length % 8))
+          @output += '0' * (8 - (@output.length % 8))
         end
 
-        @output += control_code(:skip, guid_diff)
+        @output += control_code(:skip, guid_diff - 1)
         @current_chunk = '1'
     
       else # skips < 20 should just be encoded as '0'
-        @current_chunk += ('0' * guid_diff)
+        @current_chunk += ('0' * (guid_diff - 1))
         @current_chunk << '1'
       end
+
       @last_guid = guid.to_i
     end
 
@@ -63,7 +64,6 @@ module Tamper
       case cmd
       when :keep
         control_seq = '00000000'
-
         bytes_to_keep = offset / 8
         control_seq += bytes_to_keep.to_s(2).rjust(32)
 
