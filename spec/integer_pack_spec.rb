@@ -43,13 +43,14 @@ describe Tamper::IntegerPack do
     str_bits = @category_pack.bitset.to_s
 
     # first item should be packed to represent 14
-    str_bits[40,6].should == 14.to_s(2).rjust(6, '0')
+    # note that this is +1 since possibility 0 represents 'no choice'
+    str_bits[40,6].should == 15.to_s(2).rjust(6, '0')
 
     # next 21
-    str_bits[46,6].should == 21.to_s(2).rjust(6, '0')
+    str_bits[46,6].should == 22.to_s(2).rjust(6, '0')
 
     # last item should be packed to represent 46
-    str_bits[52,6].should == 46.to_s(2).rjust(6, '0')
+    str_bits[52,6].should == 47.to_s(2).rjust(6, '0')
   end
 
 end
