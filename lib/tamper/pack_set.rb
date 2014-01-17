@@ -49,6 +49,7 @@ module Tamper
       opts = opts.dup
       opts[:guid_attr] ||= 'id'
       opts[:max_guid]  ||= (data.last[opts[:guid_attr].to_sym] || data.last[opts[:guid_attr].to_s])
+      opts[:num_items] ||= data.length
 
       build_pack(opts) do |p|
         data.each { |d| p << d }
@@ -59,11 +60,14 @@ module Tamper
       guid_attr = opts[:guid_attr] || 'id'
       packs = @attr_packs.values
       max_guid  = opts[:max_guid]
+      num_items = opts[:num_items]
 
-      raise ArgumentError, "You must specify the max_guid to start building a pack!" if max_guid.nil?
+      [:num_items, :max_guid].each do |required_opt|
+        raise ArgumentError, "You must specify :#{required_opt} to start building a pack!" if !opts.key?(required_opt)
+      end
 
-      existence_pack.initialize_pack!(max_guid)
-      packs.each { |p| p.initialize_pack!(max_guid) }
+      existence_pack.initialize_pack!(max_guid, num_items)
+      packs.each { |p| p.initialize_pack!(max_guid, num_items) }
 
       idx = 0
       packer = ->(d) {
@@ -100,10 +104,10 @@ module Tamper
     def to_hash(opts={})
       output = {
         existence: @existence_pack.to_h,
-        attributes: Hash[@attr_packs.values.map { |p| [p.attr_name, p.to_h] }]
+        attributes: @attr_packs.values.map { |p| p.to_h }
       }
 
-      output[:attributes].merge!(@buffered_attrs)
+      output[:attributes] += @buffered_attrs.values
       output.merge!(meta)
       output
     end

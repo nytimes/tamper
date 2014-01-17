@@ -7,7 +7,7 @@ module Tamper
       @last_guid = 0
     end
 
-    def initialize_pack!(max_guid)
+    def initialize_pack!(max_guid, num_items)
     end
 
     def encoding

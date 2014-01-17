@@ -15,7 +15,13 @@ module Tamper
         value = choice_data[choice_idx]
 
         # TODO: test and handle nil case
-        possibility_id = possibilities.index(value) + 1
+        if possibility_idx = possibilities.index(value.to_s)
+          possibility_id =  possibility_idx + 1
+        else
+          possibility_id = 0
+        end
+        puts "DATA IS #{value} AND #{possibility_idx}"
+
 
         bit_code = possibility_id.to_i.to_s(2).split('') # converts to str binary representation
         bit_code_length_pad = bit_window_width - bit_code.length
@@ -26,12 +32,12 @@ module Tamper
 
     end
 
-    def initialize_pack!(max_guid)
+    def initialize_pack!(max_guid, num_items)
       @bit_window_width = Math.log2(possibilities.length).ceil
       @bit_window_width = 1        if @bit_window_width == 0  # edge case: 1 possibility
 
       @item_window_width = bit_window_width * max_choices
-      @bitset = Bitset.new(item_window_width * (max_guid + 1))
+      @bitset = Bitset.new(item_window_width * num_items)
     end
 
   end

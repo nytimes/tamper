@@ -18,7 +18,7 @@ describe Tamper::PackSet do
   end
 
   it "packs data using a block" do
-    @pack_set.build_pack(max_guid: 2) do |p|
+    @pack_set.build_pack(max_guid: 2, num_items: @data.length) do |p|
       @data.each { |d| p << d }
     end
 
@@ -56,7 +56,7 @@ describe Tamper::PackSet do
       filter_type: 'none'
     )
 
-    caption_attr = @pack_set.to_hash[:attributes][:caption]
+    caption_attr = @pack_set.to_hash[:attributes].detect { |attr| attr[:attr_name] ==  'caption' }
     caption_attr.should_not be_nil
     caption_attr[:display_name].should == 'Display Caption'
   end

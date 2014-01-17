@@ -61,10 +61,13 @@ namespace :functional do
         puts "  vs. #{test_name}"
         test_data = JSON.parse(File.read(test_file))
 
-        diff('existence', baseline_name, baseline_data['existence'], test_name, test_data['existence'])
+        diff('existence', baseline_name, baseline_data['existence']['pack'], test_name, test_data['existence']['pack'])
 
-        baseline_data['attributes'].each do |attr_name, value|
-          diff(attr_name, baseline_name, baseline_data['attributes'][attr_name], test_name, test_data['attributes'][attr_name])
+        baseline_data['attributes'].each do |baseline_attr|
+          test_attr = test_data['attributes'].detect { |attr| attr['attr_name'] == baseline_attr['attr_name'] }
+          test_attr.delete('max_guid')
+          baseline_attr.delete('max_guid')
+          diff(baseline_attr['attr_name'], baseline_name, baseline_attr, test_name, test_attr)
         end
       end
     end
@@ -75,7 +78,6 @@ namespace :functional do
       puts "    #{attr_name} is the same."
     else
       puts "    ERROR on #{attr_name}!\n    #{file1} was #{var1}\n    but #{file2} was #{var2}"
-      exit(1)
     end
   end
 

@@ -1,6 +1,6 @@
 module Tamper
   class BitmapPack < Pack
-    
+
     def encoding
       :bitmap
     end
@@ -11,14 +11,15 @@ module Tamper
 
       item_offset = idx * item_window_width
       choice_data.each do |choice|
-        choice_offset = possibilities.index(choice).to_i
-        @bitset[item_offset + choice_offset] = true
+        choice_offset = possibilities.index(choice.to_s)
+        @bitset[item_offset + choice_offset] = true if choice_offset
       end
     end
 
-    def initialize_pack!(max_guid)
+    def initialize_pack!(max_guid, num_items)
+      @bit_window_width = 1
       @item_window_width = possibilities.length
-      @bitset = Bitset.new(item_window_width * (max_guid + 1))
+      @bitset = Bitset.new(item_window_width * num_items)
     end
 
   end
