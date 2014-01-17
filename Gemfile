@@ -6,3 +6,4 @@ gemspec
 gem 'rspec'
 gem 'byebug'
 gem 'json'
+gem 'rake'
