@@ -24,6 +24,7 @@ module Tamper
         bit_code = possibility_id.to_i.to_s(2).split('') # converts to str binary representation
         bit_code_length_pad = bit_window_width - bit_code.length
         bit_code.each_with_index do |bit, bit_idx|
+          byebug if (choice_offset + bit_code_length_pad + bit_idx) == -1
           @bitset[(choice_offset + bit_code_length_pad + bit_idx)] = bit == "1"
         end
       end
@@ -31,7 +32,7 @@ module Tamper
     end
 
     def initialize_pack!(max_guid, num_items)
-      @bit_window_width = Math.log2(possibilities.length).ceil
+      @bit_window_width = Math.log2(possibilities.length + 1).ceil  # add 1 to possiblities.length for the implicit nil possiblity.
       @bit_window_width = 1        if @bit_window_width == 0  # edge case: 1 possibility
 
       @item_window_width = bit_window_width * max_choices
