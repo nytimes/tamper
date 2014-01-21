@@ -20,8 +20,6 @@ module Tamper
         else
           possibility_id = 0
         end
-        puts "DATA IS #{value} AND #{possibility_idx}"
-
 
         bit_code = possibility_id.to_i.to_s(2).split('') # converts to str binary representation
         bit_code_length_pad = bit_window_width - bit_code.length
