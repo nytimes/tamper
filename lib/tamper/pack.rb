@@ -13,6 +13,7 @@ module Tamper
       @meta = {}
 
       raise ArgumentError, "Possibilities are empty for #{attr_name}!" if possibilities.nil? || possibilities.empty?
+      @possibilities.map!(&:to_s) # tamper values/possibilities should always be strings.
     end
 
     def self.build(attr_name, possibilities, max_choices)
