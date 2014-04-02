@@ -103,6 +103,7 @@ module Tamper
 
     def to_hash(opts={})
       output = {
+        version: '2.1',
         existence: @existence_pack.to_h,
         attributes: @attr_packs.values.map { |p| p.to_h }
       }
