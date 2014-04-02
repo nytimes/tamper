@@ -33,7 +33,6 @@ describe Tamper::ExistencePack do
     it "sets all ids as existing, then pads with zeroes" do
       @bits[48,8].should == '11100000'
     end
-
   end
 
   describe "with gaps in ids" do
@@ -76,6 +75,34 @@ describe Tamper::ExistencePack do
 
     it "sets bits correctly after a skipped gap" do
       @bits[144,8].to_s.should == '11100000'
+    end
+  end
+
+  describe "with a run of ids" do
+    before do
+      guids = [(0..59).to_a, 67,68].flatten
+      @data = guids.map { |g| { 'id' => g } }
+      @pack_set = Tamper::PackSet.new
+      @pack_set.pack!(@data)
+
+      @existence_pack = @pack_set.existence_pack
+      @existence_pack.should be_a(Tamper::ExistencePack)
+      @bits = @existence_pack.bitset.to_s
+    end
+
+    it "sets a run for the continguous ids" do
+      @bits[0,8].should == '00000010' # run code
+      @bits[8,32].to_i(2).should == 60 # run of 60 guids
+    end
+
+    it "sets a keep control char after the run" do
+      @bits[40,8].should == '00000000'  # keep
+      @bits[48,32].to_i(2).should == 1  # keep 0 bytes
+      @bits[80,8].to_i(2).should  == 1  # keep 1 remaining bit
+    end
+
+    it "sets bits correctly after a skipped gap" do
+      @bits[88,16].to_s.should == '00000001' + '10000000'
     end
   end
 
