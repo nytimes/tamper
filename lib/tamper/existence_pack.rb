@@ -4,7 +4,8 @@ module Tamper
     def initialize
       @output = ''
       @current_chunk = ''
-      @last_guid = 0
+      @last_guid   = 0
+      @run_counter = 0
     end
 
     def initialize_pack!(max_guid, num_items)
@@ -20,30 +21,35 @@ module Tamper
 
       if guid_diff == 1 || guid.to_i == 0  # guid is 1 step forward
         @current_chunk << '1'
-      
+        @run_counter += 1
+
       elsif guid_diff <= 0  # somehow we went backwards or didn't change guid on iteration
         raise ArgumentError, "Error: data was not sorted by GUID (got #{@last_guid}, then #{guid})!"
     
       elsif guid_diff > 40  # big gap, encode with skip control char
-        write_keep(@current_chunk)
+        dump_keep(@current_chunk, @run_counter)
 
         @output += control_code(:skip, guid_diff - 1)
         @current_chunk = '1'
-    
+        @run_counter   = 1
+
       else # skips < 40 should just be encoded as '0'
-        if @current_chunk.length > 40   # first check if a run came before this 0; if so dump it
-          write_keep(@current_chunk)
+        if @run_counter > 40    # first check if a run came before this 0; if so dump it
+          dump_keep(@current_chunk, @run_counter)
           @current_chunk = ''
+          @run_counter = 0
         end
+
         @current_chunk += ('0' * (guid_diff - 1))
         @current_chunk << '1'
+        @run_counter = 1
       end
 
       @last_guid = guid.to_i
     end
 
     def finalize_pack!
-      write_keep(@current_chunk)
+      dump_keep(@current_chunk, @run_counter)
       raise "Encoding error, #{@output.length} is not an even number of bytes!" if @output.length % 8 > 0
       @bitset = Bitset.from_s(@output)
     end
@@ -55,10 +61,11 @@ module Tamper
 
 
     private
-    def write_keep(chunk)
-      if chunk.length > 40
-        @output += control_code(:run, chunk.length)
-      elsif !chunk.empty?
+    def dump_keep(chunk, run_len)
+      if run_len >= 40
+        dump_keep(chunk[0, chunk.length - run_len], 0)
+        @output += control_code(:run, run_len)
+      elsif !(chunk.nil? || chunk.empty?)
         @output += control_code(:keep, chunk.length)
         @output += chunk
 
