@@ -47,6 +47,8 @@ keys if required by your application:
 
 ### Encoding data
 
+** Important Note: ** the `id` attribute must be numeric.  Tamper cannot pack string IDs, since ExistencePack compression relies on contiguous ranges.  If the `id` is a string, it will be coerced to an int.
+
 #### If you can provide an array of hashes upfront
 
 
