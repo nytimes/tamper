@@ -7,3 +7,7 @@ Encoders are available in [Ruby]() and [Go]().  Currently, the deseralizer is on
 For more info, see:
   * [Project Homepage](http://newsdev.github.io/tamper/)
   * [Wiki](https://github.com/newsdev/tamper/wiki)
+
+#### License
+
+Tamper is distributed under the Apache 2.0 license.
