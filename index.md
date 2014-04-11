@@ -72,5 +72,5 @@ Integer packs are similar in concept to Protocol Buffer  <tt>[varints](https://d
 
 Tamper is distributed under the Apache 2.0 License.
 
-![OpenNews logo]({{site.baseurl}}/public/opennews-logo.png)
-[Released for OpenNews Code Convening, April 2014](Released for OpenNews Code Convening, April 2014)
+<img src="{{site.baseurl}}/public/opennews-logo.png" alt="OpenNews logo" width="100" />
+[Released for OpenNews Code Convening, April 2014](http://opennews.org/code.html)
