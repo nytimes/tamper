@@ -4,5 +4,6 @@ title: Tamper
 description: Tamper is a serialization protocol for categorical data.
 github:
   repo: http://github.com/newsdev/tamper
+  wiki: http://github.com/newsdev/tamper/wiki
 exclude: 
     - build.sh

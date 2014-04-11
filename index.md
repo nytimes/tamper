@@ -7,7 +7,9 @@ title: Introducing Tamper
 
 Tamper is a serialization protocol for categorical data.  It achieves high compression ratios by finding the smallest possible binary representation for each category.
 
-Take, for example, a boolean attribute.  In naïve JSON we would represent this as a "true" or "false" string:
+### How does it work?
+
+Take, for example, a boolean attribute.  In naïve JSON we would represent this as a string, "true" or "false":
 
 ```json
 [{
@@ -22,7 +24,12 @@ Take, for example, a boolean attribute.  In naïve JSON we would represent this 
 
 Each value is 4-5 bytes; including punctiation 27 bytes are required per item.
 
-**But using Tamper's binary encoding we can express the same data as "10", or 0.25 bytes!**
+Tamper evaluates the data to find the most efficent encoding&mdash;in this case, a [BitmapPack]({{ site.github.wiki }}/Packs/#bitmap-pack).  The data is serialized as
+
+```
+10
+```
+**, just 0.25 bytes!**
 
 Full details of Tamper's encoding scheme are in the [protocol docs](Packs).
 
