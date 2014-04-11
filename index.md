@@ -37,6 +37,7 @@ If you have a large set of objects that:
 
   * you want to transfer from server to browser
   * have categorical attributes (i.e. with a distinct set of possibilities)
+  * have numeric ids (Tamper cannot pack string-based ids)
 
 Pourover can dramatically reduce the size of your data file, as well as time and memory required to serialize/deserialize.
 
