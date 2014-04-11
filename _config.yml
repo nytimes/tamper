@@ -1,0 +1,6 @@
+baseurl: /pourover
+markdown: kramdown
+title: Tamper
+description: Tamper is a serialization protocol for categorical data.
+exclude: 
+    - build.sh
