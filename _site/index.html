@@ -90,6 +90,10 @@
 
 <p>Full details of Tamper’s encoding scheme are in the <a href="Packs">protocol docs</a>.</p>
 
+<h3 id="how-can-it-help-me">How can it help me?</h3>
+
+<p>If you have </p>
+
 <hr />
 
 <h3 id="how-do-i-get-started">How do I get started?</h3>
@@ -117,7 +121,7 @@
 
 <p>Integer packs are similar in concept to <a href="https://developers.google.com/protocol-buffers/docs/encoding#varints">Protocol Buffer varints</a>: integer size is dynamically scaled to fit the value rather than being fixed at 32 bits.  However, the minimum size of a varint is one byte; for many applications Tamper only requires 2-5 bits for each item.</p>
 
-<p>Protocol Buffers are optimized for messaging details of a particular item; Tamper packs optimize for bulk categorical loads of data for many items.</p>
+<p>Protocol Buffers are optimized for messaging details of a particular item; Tamper packs optimize for bulk categorical loads of data across many items.</p>
 
 
 </div>

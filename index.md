@@ -30,6 +30,13 @@ The data is serialized as `10`, **just 0.25 bytes!**
 
 Full details of Tamper's encoding scheme are in the [protocol docs](Packs).
 
+
+### How can it help me?
+
+If you have 
+
+
+
 ----
 
 ### How do I get started?
@@ -56,5 +63,5 @@ Additionally, conventional array-of-object JSON layouts sometimes generate backr
 
 Integer packs are similar in concept to [Protocol Buffer varints](https://developers.google.com/protocol-buffers/docs/encoding#varints): integer size is dynamically scaled to fit the value rather than being fixed at 32 bits.  However, the minimum size of a varint is one byte; for many applications Tamper only requires 2-5 bits for each item.
 
-Protocol Buffers are optimized for messaging details of a particular item; Tamper packs optimize for bulk categorical loads of data for many items.
+Protocol Buffers are optimized for messaging details of a particular item; Tamper packs optimize for bulk categorical loads of data across many items.
 
