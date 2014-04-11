@@ -10,6 +10,13 @@ require 'tamper'
 # Use `rake functional:compare` to compare the outputs to the canonical version.
 namespace :functional do
 
+  desc "Generate functional outputs, then compare them"
+  task :test do
+    functional.compare
+    # Rake::Task["functional:generate"].invoke
+    # Rake::Task["functional:compare"].invoke
+  end
+
   desc "Generate functional outputs for this gem using the test inputs."
   task :generate do
     base_path  = File.dirname(__FILE__)
@@ -41,45 +48,36 @@ namespace :functional do
     end
   end
 
-  desc "Each tamper generator should have a folder in functional_test/output.  Run this to diff output from the different systems."
+  desc "Run this to diff output vs. canonical outputs."
   task :compare do
     base_path     = File.dirname(__FILE__)
-    reference_dir = 
-    output_files  = Dir.glob(File.join(base_path, 'output', '**/*.json'))
-    tests         = output_files.map { |f| File.basename(f) }.uniq.sort
+    reference_dir = File.join(base_path, '..', '..', '..', 'test', 'canonical-output')
+    output_files  = Dir.glob(File.join(base_path, 'output', '*.json'))
 
-    tests.each do |test_file|
-      outputs_to_test = output_files.select { |f| f.match(test_file) }
+    output_files.each do |test_output|
+      test_file = File.basename(test_output)
 
       puts "\nResults for: #{test_file}"
-      baseline = outputs_to_test.shift
-      baseline_name = baseline.split('/')[-2]
+      baseline_data = JSON.parse(File.read(File.join(reference_dir, test_file)))
 
-      puts "#{baseline_name} as baseline."
-      baseline_data = JSON.parse(File.read(baseline))
+      output_data = JSON.parse(File.read(test_output))
 
-      outputs_to_test.each do |test_file|
-        test_name = test_file.split('/')[-2]
-        puts "  vs. #{test_name}"
-        test_data = JSON.parse(File.read(test_file))
+      diff('existence', baseline_data['existence']['pack'], output_data['existence']['pack'])
 
-        diff('existence', baseline_name, baseline_data['existence']['pack'], test_name, test_data['existence']['pack'])
-
-        baseline_data['attributes'].each do |baseline_attr|
-          test_attr = test_data['attributes'].detect { |attr| attr['attr_name'] == baseline_attr['attr_name'] }
-          test_attr.delete('max_guid')
-          baseline_attr.delete('max_guid')
-          diff(baseline_attr['attr_name'], baseline_name, baseline_attr, test_name, test_attr)
-        end
+      baseline_data['attributes'].each do |baseline_attr|
+        output_attr = output_data['attributes'].detect { |attr| attr['attr_name'] == baseline_attr['attr_name'] }
+        output_attr.delete('max_guid')
+        baseline_attr.delete('max_guid')
+        diff(baseline_attr['attr_name'], baseline_attr, output_attr)
       end
     end
   end
 
-  def diff(attr_name, file1, var1, file2, var2)
+  def diff(attr_name, var1, var2)
     if var1 == var2
       puts "    #{attr_name} is the same."
     else
-      puts "    ERROR on #{attr_name}!\n    #{file1} was #{var1}\n    but #{file2} was #{var2}"
+      puts "    ERROR on #{attr_name}!\n    reference was #{var1}\n    but ruby was #{var2}"
     end
   end
 
