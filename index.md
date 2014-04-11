@@ -50,7 +50,7 @@ You'll need:
 
 Gzip works by [writing backreferences to previous symbols](http://en.wikipedia.org/wiki/DEFLATE).  Each time a symbol is repeated, gzip encodes the location and length of the backreference.  These references are in turn compressed &mdash; but in most real-world applications are larger than a direct binary encoding.
 
-Additionally, conventional array-of-object JSON layouts generate backreferences at each attribute boundary.  Because Tamper packs all values for an attribute in a fixed-width format, there is no attribute boundary overhead.
+Additionally, conventional array-of-object JSON layouts sometimes generate backreferences at each attribute boundary.  Because Tamper packs all values for an attribute in a fixed-width format, there is no attribute boundary overhead.
 
 ##### Google Protocol Buffers
 

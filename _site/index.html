@@ -111,7 +111,7 @@
 
 <p>Gzip works by <a href="http://en.wikipedia.org/wiki/DEFLATE">writing backreferences to previous symbols</a>.  Each time a symbol is repeated, gzip encodes the location and length of the backreference.  These references are in turn compressed — but in most real-world applications are larger than a direct binary encoding.</p>
 
-<p>Additionally, conventional array-of-object JSON layouts generate backreferences at each attribute boundary.  Because Tamper packs all values for an attribute in a fixed-width format, there is no attribute boundary overhead.</p>
+<p>Additionally, conventional array-of-object JSON layouts sometimes generate backreferences at each attribute boundary.  Because Tamper packs all values for an attribute in a fixed-width format, there is no attribute boundary overhead.</p>
 
 <h5 id="google-protocol-buffers">Google Protocol Buffers</h5>
 
