@@ -180,4 +180,13 @@ if(typeof exports !== "undefined"){
     exports.Tamper = function(){
         return Tamper;
     }
+} else {
+  if (typeof define === 'function' && define.amd) {
+    define(['underscore'], function(_) {
+      return Tamper;
+    });
+  }
+  else {
+    window.Tamper = Validator;
+  }
 }
