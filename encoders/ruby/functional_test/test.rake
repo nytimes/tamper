@@ -12,9 +12,8 @@ namespace :functional do
 
   desc "Generate functional outputs, then compare them"
   task :test do
-    functional.compare
-    # Rake::Task["functional:generate"].invoke
-    # Rake::Task["functional:compare"].invoke
+    Rake::Task["functional:generate"].invoke
+    Rake::Task["functional:compare"].invoke
   end
 
   desc "Generate functional outputs for this gem using the test inputs."
@@ -24,9 +23,10 @@ namespace :functional do
     inputs     = Dir.glob(File.join(base_path, '..', '..', '..', 'test', 'datasets', '*.json'))
     output_dir = File.join(base_path, 'output')
 
+    puts "Sweeping output dir..."
+    FileUtils.rm_f(File.join(output_dir, '*.json'))
     FileUtils.mkdir_p(output_dir)
 
-    puts
     puts "Generating test output for ruby-tamper."
 
     inputs.each do |input_file|
@@ -53,31 +53,42 @@ namespace :functional do
     base_path     = File.dirname(__FILE__)
     reference_dir = File.join(base_path, '..', '..', '..', 'test', 'canonical-output')
     output_files  = Dir.glob(File.join(base_path, 'output', '*.json'))
-
+    diffs = []
+    
     output_files.each do |test_output|
       test_file = File.basename(test_output)
 
       puts "\nResults for: #{test_file}"
-      baseline_data = JSON.parse(File.read(File.join(reference_dir, test_file)))
+      reference_data = JSON.parse(File.read(File.join(reference_dir, test_file)))
 
-      output_data = JSON.parse(File.read(test_output))
+      ruby_data = JSON.parse(File.read(test_output))
 
-      diff('existence', baseline_data['existence']['pack'], output_data['existence']['pack'])
+      diffs << diff('existence', reference_data['existence']['pack'], ruby_data['existence']['pack'])
 
-      baseline_data['attributes'].each do |baseline_attr|
-        output_attr = output_data['attributes'].detect { |attr| attr['attr_name'] == baseline_attr['attr_name'] }
-        output_attr.delete('max_guid')
-        baseline_attr.delete('max_guid')
-        diff(baseline_attr['attr_name'], baseline_attr, output_attr)
+      reference_data['attributes'].each do |reference_attr|
+        ruby_attr = ruby_data['attributes'].detect { |attr| attr['attr_name'] == reference_attr['attr_name'] }
+        ruby_attr.delete('max_guid')
+        reference_attr.delete('max_guid')
+        diffs << diff(reference_attr['attr_name'], reference_attr, ruby_attr)
       end
+    end
+
+    puts
+    if diffs.any? { |d| d == false }
+      puts "**** There were errors in this test run."
+    else
+      puts "Functional tests OK!"
     end
   end
 
+  # Returns true if values were the same, false otherwise.
   def diff(attr_name, var1, var2)
     if var1 == var2
       puts "    #{attr_name} is the same."
+      return true
     else
       puts "    ERROR on #{attr_name}!\n    reference was #{var1}\n    but ruby was #{var2}"
+      return false
     end
   end
 
