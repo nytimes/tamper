@@ -74,5 +74,7 @@ Tamper is distributed under the Apache 2.0 License.
 
 <img src="{{site.baseurl}}/public/opennews-logo.png" alt="OpenNews logo" width="100" />
 <div style="font-size:10px">
+
 [Released for OpenNews Code Convening, April 2014](http://opennews.org/code.html)
+
 </div>
