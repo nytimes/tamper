@@ -11,7 +11,7 @@ Tamper is a serialization protocol for categorical data.  It achieves high compr
 
 Take, for example, a boolean attribute.  In naïve JSON we would represent this as a string, "true" or "false":
 
-```json
+```
 [{
   "guid" : 1,
   "edpick" : true
