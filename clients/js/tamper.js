@@ -58,22 +58,17 @@ Tamper.unpackExistence = function(element,default_attrs){
         if (cc == 0){
           var bytes_to_consume = consumeNum(32,array),
               bits_to_consume = consumeNum(8,array);
-          console.log("consume",bytes_to_consume,bits_to_consume)
           consumeChunk(bytes_to_consume,bits_to_consume,array);
-          console.log("counter",counter)
           if(bits_to_consume > 0){
             array.splice(0,8 - bits_to_consume)
           }
           return processBitArray(array);
         } else if (cc == 1){
           var num_to_skip = consumeNum(32,array);
-          console.log("skip",num_to_skip)
           counter += num_to_skip;
-          console.log("counter",counter)
           return processBitArray(array);
         } else if (cc == 2){
           var num_to_run = consumeNum(32,array);
-          console.log("run",num_to_run)
           for (var i = 0;i < num_to_run;i++){
             default_attrs = _.clone(default_attrs);
             output.push(_.extend(default_attrs,{guid: counter}));
@@ -100,9 +95,6 @@ Tamper.unpackIntegerEncoding = function(element, num_items) {
       item_chunks = item_window_width/bit_window_width;
       bytes_to_consume = consumeNum(bitArray,32),
       bits_to_consume = consumeNum(bitArray,8);
-  if(element.attr_name == "genres"){
-    console.log(bit_window_width,item_window_width,bitArray)
-  }
   var getPossibility = function(i){
     if(i === 0){
         return null
@@ -147,9 +139,6 @@ Tamper.unpackBitmapEncoding = function(element){
 
   while(i < chunks) {
     bit_window = bitArray.slice(i * item_window_width, (i * item_window_width) + item_window_width);
-    if (i == 6379 || i == 6380){
-      console.log("window",bit_window)
-    }
     if (! output[i]) {output[i] = []}
     j = 0;
     while (j < item_window_width){
