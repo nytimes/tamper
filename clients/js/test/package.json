@@ -1,0 +1,11 @@
+{
+  "name": "tamper-tests",
+  "description": "test harness for tamper.js",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "underscore": "*",
+    "atob": "*",
+    "nodeunit" : "*"
+  }
+}
