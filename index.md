@@ -54,7 +54,7 @@ You'll need:
 
 ---
 
-#### How does Tamper compare to other serialization approaches?
+### How does Tamper compare to other serialization approaches?
 
 ##### gzipped JSON
 
