@@ -1,7 +1,8 @@
-var tamper = require("../tamper.js")
+var atob = require("atob")
+var _ = require('underscore')
+var tamper = require("../src/tamper.js")
 var fs = require('fs')
 var sys = require('sys')
-var _ = require('underscore')
 
 exports.testLargeJson = function(test){
     t = tamper.Tamper();
