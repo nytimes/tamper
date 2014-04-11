@@ -22,7 +22,7 @@ Take, for example, a boolean attribute.  In naïve JSON we would represent this 
 }]
 ```
 
-Each value is 4-5 bytes; including punctuation 27 bytes are required per item.
+Each value is 4-5 bytes; including punctuation **27 bytes are required per item**.
 
 Tamper evaluates the data to find the most efficent encoding&mdash;in this case, a [BitmapPack]({{ site.github.wiki }}/Packs/#bitmap-pack).
 
