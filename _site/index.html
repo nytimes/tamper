@@ -126,9 +126,9 @@
 
 <h5 id="google-protocol-buffers">Google Protocol Buffers</h5>
 
-<p>Integer packs are similar in concept to <a href="https://developers.google.com/protocol-buffers/docs/encoding#varints">Protocol Buffer <tt>varints</tt></a>: integer size is dynamically scaled to fit the value rather than fixed at 32 bits.  However, the minimum size of a varint is one byte; for many applications Tamper only requires 2-5 bits for each item.</p>
+<p>Integer packs are similar in concept to Protocol Buffer  <a href="https://developers.google.com/protocol-buffers/docs/encoding#varints"><tt>varints</tt></a>: integer size is dynamically scaled to fit the value rather than fixed at 32 bits.  However, the minimum size of a varint is one byte; for many applications Tamper requires only 2-5 bits for each item.</p>
 
-<p>Protocol Buffers are optimized for messaging details of a particular item; Tamper packs optimize for bulk categorical loads of data across many items.</p>
+<p><a href="https://developers.google.com/protocol-buffers/">Protocol Buffers</a> are optimized for messaging details of a particular item; Tamper packs optimize for bulk categorical loads of data across many items.</p>
 
 
 </div>
