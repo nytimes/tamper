@@ -33,9 +33,12 @@ Full details of Tamper's encoding scheme are in the [protocol docs](Packs).
 
 ### How can it help me?
 
-If you have 
+If you have a large set of objects that:
 
+  * you want to transfer from server to browser
+  * have categorical attributes (i.e. with a distinct set of possibilities)
 
+Pourover can dramatically reduce the size of your data file, as well as time and memory required to serialize/deserialize.
 
 ----
 
