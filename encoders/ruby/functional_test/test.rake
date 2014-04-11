@@ -1,22 +1,25 @@
 require 'json'
 require 'tamper'
 
-# The input folder contains a variety of reference datasets.
+# The test/datasets folder at the root of the project
+# contains a variety of reference datasets.
 #
 # `rake functional:generate` will write generate tamper output for each
-# test set and write it to output/ruby-tamper.
+# test file and write the result to output/ruby-tamper.
 #
-# You can place output from other tamper generators (for example, taMPEG)
-# into parallel output folders.  Use `rake functional:compare` to compare
-# the outputs from different system.
+# Use `rake functional:compare` to compare the outputs to the canonical version.
 namespace :functional do
 
   desc "Generate functional outputs for this gem using the test inputs."
   task :generate do
-    base_path = File.dirname(__FILE__)
-    config    = JSON.parse(File.read(File.join(base_path, 'input', 'config.json')), symbolize_names: true)
-    inputs    =  Dir.glob(File.join(base_path, 'input', 'test*'))
+    base_path  = File.dirname(__FILE__)
+    config     = JSON.parse(File.read(File.join(base_path, 'config.json')), symbolize_names: true)
+    inputs     = Dir.glob(File.join(base_path, '..', '..', '..', 'test', 'datasets', '*.json'))
+    output_dir = File.join(base_path, 'output')
 
+    FileUtils.mkdir_p(output_dir)
+
+    puts
     puts "Generating test output for ruby-tamper."
 
     inputs.each do |input_file|
@@ -34,17 +37,16 @@ namespace :functional do
         exit(1)
       end
 
-      output = input_file.sub('/input/','/output/ruby-tamper3/')
-      FileUtils.mkdir_p(File.dirname(output))
-      File.open(output, 'w') { |f| f.write(@pack_set.to_json) }
+      File.open(File.join(output_dir, File.basename(input_file)), 'w') { |f| f.write(@pack_set.to_json) }
     end
   end
 
   desc "Each tamper generator should have a folder in functional_test/output.  Run this to diff output from the different systems."
   task :compare do
-    base_path    = File.dirname(__FILE__)
-    output_files = Dir.glob(File.join(base_path, 'output', '**/*.json'))
-    tests        = output_files.map { |f| File.basename(f) }.uniq.sort
+    base_path     = File.dirname(__FILE__)
+    reference_dir = 
+    output_files  = Dir.glob(File.join(base_path, 'output', '**/*.json'))
+    tests         = output_files.map { |f| File.basename(f) }.uniq.sort
 
     tests.each do |test_file|
       outputs_to_test = output_files.select { |f| f.match(test_file) }
