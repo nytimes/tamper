@@ -1,6 +1,6 @@
+.DS_Store
 *.gem
 .bundle
 Gemfile.lock
 pkg/*
-.DS_Store
-functional_test/output
+encoders/ruby/functional_test/output
