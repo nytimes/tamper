@@ -1,0 +1,6 @@
+{"items":[{"guid":1,"bmp":["a"],"unbmp":["left"],"num":[1],"gender":"male"},
+          {"guid":2,"bmp":["b","c"],"unbmp":"left","num":1,"gender":"female"},
+          {"guid":300,"bmp":["a","e","d","g","h"],"unbmp":["up","down"],"num":4,"gender":"male"},
+          {"guid":400,"bmp":["b"],"unbmp":["right"],"num":7,"gender":"female"},
+          {"guid":500,"bmp":["h","g"],"unbmp":"down","num":10,"gender":"male"}
+]}
