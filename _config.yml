@@ -1,7 +1,7 @@
 baseurl: /tamper
 markdown: kramdown
 title: Tamper
-description: Tamper is a space-efficent serialization protocol for categorical data.
+description: Tamper is a serialization protocol for categorical data.
 github:
   repo: http://github.com/newsdev/tamper
 exclude: 
