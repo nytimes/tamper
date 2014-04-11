@@ -82,14 +82,11 @@
 }]
 </code></p>
 
-<p>Each value is 4-5 bytes; including punctiation 27 bytes are required per item.</p>
+<p>Each value is 4-5 bytes; including punctuation 27 bytes are required per item.</p>
 
-<p>Tamper evaluates the data to find the most efficent encoding—in this case, a <a href="http://github.com/newsdev/tamper/wiki/Packs/#bitmap-pack">BitmapPack</a>.  The data is serialized as</p>
+<p>Tamper evaluates the data to find the most efficent encoding—in this case, a <a href="http://github.com/newsdev/tamper/wiki/Packs/#bitmap-pack">BitmapPack</a>.</p>
 
-<p><code>
-10
-</code>
-<strong>, just 0.25 bytes!</strong></p>
+<p>The data is serialized as <code>10</code>, <strong>just 0.25 bytes!</strong></p>
 
 <p>Full details of Tamper’s encoding scheme are in the <a href="Packs">protocol docs</a>.</p>
 
