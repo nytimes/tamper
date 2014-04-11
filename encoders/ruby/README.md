@@ -81,3 +81,10 @@ puts @pack_set.to_json
 ### For more info
 
 See [protocol specs](https://github.com/newsdev/tamper/wiki/Packs) on the Tamper wiki.
+
+### Running tests
+
+ruby-tamper ships with:
+
+  * rspecs, which can be run with `bundle exec rspec`
+  * functional tests to generate output based on reference datasets.  Results are compared to the canonical-output in the root of the project. Run these with `bundle exec rake functional:test`
