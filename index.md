@@ -67,3 +67,10 @@ Additionally, conventional array-of-object JSON layouts sometimes generate backr
 Integer packs are similar in concept to Protocol Buffer  <tt>[varints](https://developers.google.com/protocol-buffers/docs/encoding#varints)</tt>: integer size is dynamically scaled to fit the value rather than fixed at 32 bits.  However, the minimum size of a varint is one byte; for many applications Tamper requires only 2-5 bits for each item.
 
 [Protocol Buffers](https://developers.google.com/protocol-buffers/) are optimized for messaging details about a particular item; Tamper packs optimize for bulk categorical loads across many items.
+
+----
+
+Tamper is distributed under the Apache 2.0 License.
+
+![OpenNews logo]({{site.baseurl}}/public/opennews-logo.png)
+[Released for OpenNews Code Convening, April 2014](Released for OpenNews Code Convening, April 2014)
