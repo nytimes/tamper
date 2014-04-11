@@ -1,0 +1,1 @@
+Running the test datasets through your encoder should result in the canonical output.
