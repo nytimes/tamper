@@ -48,8 +48,8 @@ Tamper is intended as a companion to [pourover.js](http://newsdev.github.io/pour
 
 You'll need:
 
-  1. an encoder to write the TamperPack (available for [Ruby](RubyEncoder), and soon Go)
-  2. the [javascript client](JavascriptClient).
+  1. an encoder to write the TamperPack (available for [Ruby]({{ site.github.wiki }}/RubyEncoder), and soon Go)
+  2. the [javascript client]({{ site.github.wiki }}/JavascriptClient).
 
 
 ---
@@ -64,7 +64,6 @@ Additionally, conventional array-of-object JSON layouts sometimes generate backr
 
 ##### Google Protocol Buffers
 
-Integer packs are similar in concept to Protocol Buffer  [<tt>varints</tt>](https://developers.google.com/protocol-buffers/docs/encoding#varints): integer size is dynamically scaled to fit the value rather than fixed at 32 bits.  However, the minimum size of a varint is one byte; for many applications Tamper requires only 2-5 bits for each item.
+Integer packs are similar in concept to Protocol Buffer  <tt>[varints](https://developers.google.com/protocol-buffers/docs/encoding#varints)</tt>: integer size is dynamically scaled to fit the value rather than fixed at 32 bits.  However, the minimum size of a varint is one byte; for many applications Tamper requires only 2-5 bits for each item.
 
-[Protocol Buffers](https://developers.google.com/protocol-buffers/) are optimized for messaging details about a particular item; Tamper packs optimize for bulk categorical loads of data across many items.
-
+[Protocol Buffers](https://developers.google.com/protocol-buffers/) are optimized for messaging details about a particular item; Tamper packs optimize for bulk categorical loads across many items.
