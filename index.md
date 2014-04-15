@@ -45,7 +45,7 @@ Pourover can dramatically reduce the size of your data file, as well as time and
 
 ### How do I get started?
 
-Tamper is intended as a companion to [pourover.js](http://newsdev.github.io/pourover/), but can be used independently.
+Tamper is intended as a companion to [pourover.js](http://nytimes.github.io/pourover/), but can be used independently.
 
 You'll need:
 
