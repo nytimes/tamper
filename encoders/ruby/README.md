@@ -82,7 +82,7 @@ puts @pack_set.to_json
 
 ### For more info
 
-See [protocol specs](https://github.com/newsdev/tamper/wiki/Packs) on the Tamper wiki.
+See [protocol specs](https://github.com/NYTimes/tamper/wiki/Packs) on the Tamper wiki.
 
 ### Running tests
 

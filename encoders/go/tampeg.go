@@ -573,7 +573,7 @@ func main() {
   }
 
   if(start_server){
-    fmt.Printf("Silence. The tamperer is tamping the data for pourover on port " + config_port)
+    fmt.Printf("Silence. The tamper is tamping the data for pourover on port " + config_port)
     http.HandleFunc("/", makeGzipHandler(packHandler))
     http.ListenAndServe(":"+config_port, nil)
   } else if (config_input != ""){
