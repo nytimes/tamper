@@ -3,7 +3,7 @@ markdown: kramdown
 title: Tamper
 description: Tamper is a serialization protocol for categorical data.
 github:
-  repo: http://github.com/NYTimes/tamper
-  wiki: http://github.com/NYTimes/tamper/wiki
+  repo: https://github.com/NYTimes/tamper
+  wiki: https://github.com/NYTimes/tamper/wiki
 exclude: 
     - build.sh
