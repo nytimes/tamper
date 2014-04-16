@@ -45,7 +45,7 @@ Pourover can dramatically reduce the size of your data file, as well as time and
 
 ### How do I get started?
 
-Tamper is intended as a companion to [pourover.js](http://newsdev.github.io/pourover/), but can be used independently.
+Tamper is intended as a companion to [pourover.js](http://nytimes.github.io/pourover/), but can be used independently.
 
 You'll need:
 
@@ -71,7 +71,7 @@ Integer packs are similar in concept to Protocol Buffer  <tt>[varints](https://d
 
 ----
 
-Tamper is distributed under the Apache 2.0 License.
+Tamper is distributed under the [Apache 2.0 License](https://github.com/NYTimes/tamper/blob/master/LICENSE.txt).
 
 <img src="{{site.baseurl}}/public/opennews-logo.png" alt="OpenNews logo" width="120" style="margin: 0" />
 <a href="http://opennews.org/code.html" style="font-size:14px;">Released for OpenNews Code Convening, April 2014</a>
