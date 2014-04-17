@@ -28,7 +28,7 @@ Tamper evaluates the data to find the most efficent encoding&mdash;in this case,
 
 The data is serialized as `10`, **just 0.25 bytes!**
 
-Full details of Tamper's encoding scheme are in the [protocol docs](Packs).
+Full details of Tamper's encoding scheme are in the [protocol docs]({{ site.github.wiki }}/Packs).
 
 
 ### How can it help me?
