@@ -31,7 +31,7 @@ keys if required by your application:
 
 ```ruby
 @pack_set.add_attribute(
-  name: :bucket,
+  attr_name: :bucket,
   possibilities: @project.buckets.map(&:downcase),
   max_choices: 1
 )
@@ -41,7 +41,7 @@ keys if required by your application:
 
 ```ruby
 @pack_set.add_buffered_attribute(
-  name: 'name'
+  attr_name: 'name'
 )
 ```
 
