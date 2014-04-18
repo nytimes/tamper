@@ -187,6 +187,6 @@ if(typeof exports !== "undefined"){
     });
   }
   else {
-    window.Tamper = Validator;
+    window.Tamper = Tamper;
   }
 }
