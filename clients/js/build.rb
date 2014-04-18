@@ -1,6 +1,6 @@
 require 'yui/compressor'
 
-VERSION = '1.0.0'
+VERSION = '1.0.1'
 
 compressor = YUI::JavaScriptCompressor.new
 
