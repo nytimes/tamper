@@ -5,3 +5,4 @@ Gemfile.lock
 pkg/*
 encoders/ruby/functional_test/output
 clients/js/test/node_modules
+examples/tmp
