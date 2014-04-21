@@ -24,7 +24,6 @@ module Tamper
         bit_code = possibility_id.to_i.to_s(2).split('') # converts to str binary representation
         bit_code_length_pad = bit_window_width - bit_code.length
         bit_code.each_with_index do |bit, bit_idx|
-          byebug if (choice_offset + bit_code_length_pad + bit_idx) == -1
           @bitset[(choice_offset + bit_code_length_pad + bit_idx)] = bit == "1"
         end
       end
