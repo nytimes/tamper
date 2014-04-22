@@ -40,13 +40,15 @@ pack = Tamper::PackSet.new
 pack.add_attribute(
   attr_name: :byline,
   possibilities: possibilities[:byline],
-  max_choices: 1
+  max_choices: 1,
+  filter_type: 'category'
 )
 
 pack.add_attribute(
   attr_name: :section_name,
   possibilities: possibilities[:section_name],
-  max_choices: 1
+  max_choices: 1,
+  filter_type: 'category'
 )
 
 pack.build_pack(num_items: articles.length, max_guid: articles.last[:id]) do |pack|
