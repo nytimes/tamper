@@ -49,7 +49,7 @@ Tamper is intended as a companion to [pourover.js](http://nytimes.github.io/pour
 
 You'll need:
 
-  1. an encoder to write the TamperPack (available for [Ruby]({{ site.github.wiki }}/RubyEncoder), and soon Go)
+  1. an encoder to write the TamperPack (available for [Ruby]({{ site.github.wiki }}/RubyEncoder), [JavaScript](https://github.com/oztu/tamp), and soon Go)
   2. the [javascript client]({{ site.github.wiki }}/JavascriptClient).
 
 
