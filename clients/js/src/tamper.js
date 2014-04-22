@@ -161,11 +161,15 @@ Tamper.unpackData = function(data,default_attrs){
   if(data.existence){
     var exists = Tamper.unpackExistence(data.existence,default_attrs),collection;
     _(data.attributes).each(function(a){
-      if(a.filter_type !== "category" && a.filter_type !== "primary_status" && a.filter_type !== "badge"){return;}
-      if(a.encoding == "bitmap"){
-        var attr_array = Tamper.unpackBitmapEncoding(a);
-      } else if(a.encoding == "integer"){
-        var attr_array = Tamper.unpackIntegerEncoding(a, exists.length);
+      switch(a.encoding) {
+        case 'bitmap':
+          var attr_array = Tamper.unpackBitmapEncoding(a);
+          break;
+        case 'integer':
+          var attr_array = Tamper.unpackIntegerEncoding(a, exists.length);
+          break;
+        default:  // attr does not contain a pack or is an unknown encoding
+          return;
       }
       _(exists).each(function(s,i){s[a.attr_name] = attr_array[i]});
     })
