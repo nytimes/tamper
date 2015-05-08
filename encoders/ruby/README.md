@@ -14,7 +14,7 @@ To encode data from ruby:
 
 ### Setting metadata on the pack
 
-This metadata is only necessary if you're buffing attributes,
+This metadata is only necessary if you're buffering attributes,
 or your application requires extended info about the pack.
 
 ```ruby
